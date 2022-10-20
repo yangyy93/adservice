@@ -8,7 +8,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  ADSERVICE_IMAGE_NAME: ${{ github.repository }}/adservice
+  ADSERVICE_IMAGE_NAME: ${{ github.repository }}
   SENTINEL_VERSION: 1.8.4
 
 jobs:
