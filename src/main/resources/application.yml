@@ -41,6 +41,13 @@ spring:
         group: DEFAULT_GROUP
         # 修改实例注册到Nacos的实例分组（Nacos中实例集群概念），默认是：DEFAULT
         cluster-name: DEFAULT
+        metadata:
+          k8s_cluster_id:
+          k8s_cluster_name:
+          k8s_namespace_name:
+          k8s_workload_type:
+          k8s_workload_name:
+          k8s_service_name:
 
 ---
 spring:
