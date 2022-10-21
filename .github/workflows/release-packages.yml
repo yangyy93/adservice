@@ -7,13 +7,13 @@ on:
     tags: ["v*"]
 
 env:
-  REGISTRY: ghcr.io/openinsight-proj
-  IMAGE_NAME: adservice
+  REGISTRY: ghcr.io
+  IMAGE_NAME: openinsight-proj/adservice
   REGISTRY_USER_NAME: ${{ github.actor }}
   REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
-  package-adservice:
+  release-image:
     runs-on: ubuntu-latest
     permissions:
       contents: read
