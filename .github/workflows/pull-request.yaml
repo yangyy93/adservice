@@ -10,7 +10,7 @@ on:
     branches: [ "main" ]
 
 env:
-  REGISTRY: ghcr.io
+  REGISTRY: ghcr.io/openinsight-proj
   IMAGE_NAME: ${{ github.repository }}
   REGISTRY_USER_NAME: ${{ github.actor }}
   REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
