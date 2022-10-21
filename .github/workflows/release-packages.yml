@@ -7,8 +7,8 @@ on:
     tags: ["v*"]
 
 env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: openinsight-proj/adservice
+  REGISTRY: ghcr.io/openinsight-proj
+  IMAGE_NAME: adservice
   REGISTRY_USER_NAME: ${{ github.actor }}
   REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
 
