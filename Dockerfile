@@ -26,4 +26,4 @@ ENV OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317 \
 
 EXPOSE 8081 8999 9555
 
-ENTRYPOINT java $JAVAOPTS -jar adservice-springcloud-1.0-SNAPSHOT.jar
+ENTRYPOINT java $JAVA_OPTS -jar adservice-springcloud-1.0-SNAPSHOT.jar
