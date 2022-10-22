@@ -13,7 +13,7 @@ env:
   REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
-  package-adservice:
+  release-image:
     runs-on: ubuntu-latest
     permissions:
       contents: read
