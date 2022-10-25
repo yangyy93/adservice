@@ -19,10 +19,7 @@ RUN set -ex; \
 
 ENV OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317 \
     OTEL_RESOURCE_ATTRIBUTES=service.name=adservice-springcloud \
-    NACOS_SERVER=localhost:8848 \
-    SENTINEL_SERVER=localhost:34001 \
     JAVA_TOOL_OPTIONS=-javaagent:opentelemetry-javaagent.jar \
-    JAVAOPTS=-Dspring.cloud.nacos.discovery.enabled=false -Dspring.cloud.sentinel.enabled=false
 
 EXPOSE 8081 8999 9555
 
