@@ -19,7 +19,7 @@ RUN set -ex; \
 
 ENV OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317 \
     OTEL_RESOURCE_ATTRIBUTES=service.name=adservice-springcloud \
-    JAVA_TOOL_OPTIONS=-javaagent:opentelemetry-javaagent.jar \
+    JAVA_TOOL_OPTIONS=-javaagent:opentelemetry-javaagent.jar
 
 EXPOSE 8081 8999 9555
 
