@@ -28,7 +28,7 @@ spring:
       config:
         server-addr: 10.6.222.21:30903
       discovery:
-        enabled: true
+        enabled: false
         # 注册中心地址
         server-addr: 10.6.222.21:30903
         # 注册中心用户名（如果注册中心不开启鉴权，留空）
@@ -53,7 +53,7 @@ spring:
 spring:
   cloud:
     sentinel:
-      enabled: true
+      enabled: false
       # 是否开启预加载, 设置为true时实例启动后自动在sentinel dashboard中展示, 设置为false, 需要实例有流量后该实例才会出现在sentinel dashboard中
       eager: true
       transport:
