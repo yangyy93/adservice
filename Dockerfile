@@ -13,6 +13,8 @@ FROM eclipse-temurin:11-jre
 WORKDIR /app/
 
 COPY --from=builder /app/target/adservice-springcloud-1.0-SNAPSHOT.jar ./
+COPY --from=builder /app/jmx_prometheus_javaagent-0.17.0.jar ./
+COPY --from=builder /app/prometheus-jmx-config.yaml ./
 
 RUN set -ex; \
     curl -L -O https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.16.0/opentelemetry-javaagent.jar;
