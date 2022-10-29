@@ -105,4 +105,4 @@ project:
 ---
 grpc:
   server:
-    port: 9555
+    port: 8080
