@@ -9,5 +9,5 @@ reimplement opentelemetry-demo-webstore's adservice with nacos registry and sent
 
 ## curl
 ```shell
-grpcurl -plaintext -d '{"context_keys": ["clothing","hair"]}' localhost:8080 hipstershop.AdService/GetAds
+grpcurl -plaintext -d '{"context_keys": ["binoculars","telescopes"]}' localhost:8080 hipstershop.AdService/GetAds
 ```
