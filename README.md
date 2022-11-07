@@ -1,6 +1,11 @@
+# NOTE: The overall helm chart 
+
+https://github.com/openinsight-proj/openinsight-helm-charts
+
+
 # adservice-springcloud
 
-reimplement opentelemetry-demo-webstore's adservice with nacos registry and sentinel
+This repo re-implements opentelemetry-demo-webstore's adservice with nacos registry and sentinel.
 
 ## integrate list
 
