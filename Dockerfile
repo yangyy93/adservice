@@ -8,7 +8,7 @@ RUN ./mvnw clean install package -DskipTests
 
 # -----------------------------------------------------------------------------
 
-FROM eclipse-temurin:11-jre
+FROM openjdk:11.0.15-jre
 
 WORKDIR /app/
 
@@ -17,7 +17,7 @@ COPY --from=builder /app/jmx_prometheus_javaagent-0.17.0.jar ./
 COPY --from=builder /app/prometheus-jmx-config.yaml ./
 
 RUN set -ex; \
-    curl -L -O https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.16.0/opentelemetry-javaagent.jar;
+    curl -L -O https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.19.2/opentelemetry-javaagent.jar;
 
 ENV OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317 \
     OTEL_RESOURCE_ATTRIBUTES=service.name=adservice-springcloud \
