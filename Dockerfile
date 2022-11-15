@@ -1,4 +1,4 @@
-FROM openjdk:11.0.15 AS builder
+FROM docker.io/library/openjdk:11.0.15 AS builder
 
 WORKDIR /app/
 
@@ -8,7 +8,7 @@ RUN ./mvnw clean install package -DskipTests
 
 # -----------------------------------------------------------------------------
 
-FROM openjdk:11.0.15-jre
+FROM docker.io/library/openjdk:11.0.15-jre
 
 WORKDIR /app/
 
