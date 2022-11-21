@@ -1,7 +1,7 @@
 package org.daocloud.springcloud.adservice.controller;
 
 import com.alibaba.nacos.common.utils.CollectionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -9,15 +9,12 @@ import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
-import java.io.IOException;
-import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.stream.Collectors;
 
 @RestController
 public class HelloWorld {
@@ -26,6 +23,9 @@ public class HelloWorld {
     private static AtomicLong count = new AtomicLong();
 
     private static Long limit = 1L;
+
+    @Value("${test.config:default}")
+    private String config;
 
     public HelloWorld(Environment environment) {
         this.environment = environment;
@@ -44,6 +44,11 @@ public class HelloWorld {
     @RequestMapping("/test2")
     public Mono<String> test2(){
         return Mono.just("This is a test 2 API.");
+    }
+
+    @GetMapping("/dynamic-config")
+    public Mono<String> dynamicConfig(){
+        return Mono.just(config);
     }
 
     @RequestMapping("/timeout/{timeout}")
