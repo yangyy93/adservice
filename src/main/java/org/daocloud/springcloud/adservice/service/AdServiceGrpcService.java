@@ -2,6 +2,7 @@ package org.daocloud.springcloud.adservice.service;
 
 import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.Iterables;
+import com.google.protobuf.Descriptors;
 import hipstershop.AdServiceGrpc;
 import hipstershop.Demo.Ad;
 import hipstershop.Demo.AdRequest;
@@ -21,6 +22,9 @@ import net.devh.boot.grpc.server.service.GrpcService;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.daocloud.springcloud.adservice.Interceptor.MeterInterceptor;
+import org.daocloud.springcloud.adservice.meter.Meter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.util.ArrayList;
@@ -34,12 +38,14 @@ public class AdServiceGrpcService extends AdServiceGrpc.AdServiceImplBase {
     private static final Logger logger = LogManager.getLogger(AdServiceGrpcService.class);
     private final ImmutableListMultimap<String, Ad> adsMap = createAdsMap();
 
+    @Autowired
+    private Meter meterProvider;
+
     @Value("${spring.extraAdLabel}")
     private String text;
 
     @Override
     public void getAds(AdRequest req, StreamObserver<AdResponse> responseObserver) {
-        logger.info(text);
         // get the current span in context
         Span span = Span.current();
         try{
@@ -76,6 +82,9 @@ public class AdServiceGrpcService extends AdServiceGrpc.AdServiceImplBase {
             responseObserver.onNext(reply);
             responseObserver.onCompleted();
         } catch (StatusRuntimeException e) {
+            Attributes attributes = Attributes.of(AttributeKey.stringKey("operation"),(String) MeterInterceptor.operation.get(),
+                    AttributeKey.stringKey("failed"),"true");
+            meterProvider.getGrpcCalls().add(1,attributes);
             span.addEvent(
                     "Error", Attributes.of(AttributeKey.stringKey("exception.message"), e.getMessage()));
             span.setStatus(StatusCode.ERROR);
