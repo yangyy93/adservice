@@ -2,6 +2,7 @@ package org.daocloud.springcloud.adservice.controller;
 
 import com.alibaba.nacos.common.utils.CollectionUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -17,6 +18,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
+@RefreshScope
 public class HelloWorld {
     private final Environment environment;
 
