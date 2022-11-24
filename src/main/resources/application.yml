@@ -26,6 +26,7 @@ spring:
   cloud:
     nacos:
       config:
+        # 此配置放在application中不生效(需要放在VM参数或者bootstrap中)
         server-addr: 10.6.222.21:30903
       discovery:
         enabled: false
