@@ -2,7 +2,22 @@ spring:
   application:
     name: adservice-springcloud
 server:
+  port: 8443
+  ssl:
+    enabled: ${SSL_ENABLED:false}
+    key-store-type: JKS
+    key-store: classpath:server.jks
+    key-alias: server
+    #    key-password: changeit
+
+    client-auth: ${SSL_CLIENT_AUTH:need}
+    key-store-password: changeit
+    trust-store: classpath:server.jks
+    trust-store-password: changeit
+    trust-store-type: JKS
+http:
   port: 8081
+  redirect: ${HTTP_TO_HTTPS:false}
 management:
   endpoint:
     info:
