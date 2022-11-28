@@ -27,6 +27,17 @@ adservice-springcloud will emit two metrics:
 | adservice_grpc_call_total              | record grpc call totals  | N/A  | Counter   |
 | adservice_grpc_duration_seconds_bucket | record grpc call latency | ms   | histogram |
 
+## mock latency
+
+the `hipstershop.AdService/GetAds` API will do a matrix calculation internally, you can use  `-Dspring.matrixRow=200`
+to specific the matrix size
+
+## mock error
+
+the `hipstershop.AdService/GetAds` API will return error randomly(50%), you can use `-Dspring.randomError=false`
+to disable this feature.
+
+
 ## Integrate to Nacos and Sentinel
 
 * Please notes the application.yml file:
