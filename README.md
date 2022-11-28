@@ -13,6 +13,7 @@ This repo re-implements opentelemetry-demo-webstore's adservice with nacos regis
 - [x] sentinel
 
 ## curl
+
 ```shell
 grpcurl -plaintext -d '{"context_keys": ["binoculars","telescopes"]}' localhost:8080 hipstershop.AdService/GetAds
 ```
@@ -21,21 +22,38 @@ grpcurl -plaintext -d '{"context_keys": ["binoculars","telescopes"]}' localhost:
 
 adservice-springcloud will emit two metrics:
 
-| Name                         | Description              | Unit | Type      |
-| ---------------------------- | ------------------------ | ---- | --------- |
-| grpc_call_total              | record grpc call totals  | N/A  | Counter   |
-| grpc_duration_seconds_bucket | record grpc call latency | ms   | histogram |
+| Name                                   | Description              | Unit | Type      |
+| -------------------------------------- | ------------------------ | ---- | --------- |
+| adservice_grpc_call_total              | record grpc call totals  | N/A  | Counter   |
+| adservice_grpc_duration_seconds_bucket | record grpc call latency | ms   | histogram |
+
+## mock latency
+
+the `hipstershop.AdService/GetAds` API will do a matrix calculation internally, you can use  `-Dspring.matrixRow=200`
+to specific the matrix size
+
+## mock error
+
+the `hipstershop.AdService/GetAds` API will return error randomly(50%), you can use `-Dspring.randomError=false`
+to disable this feature.
+
 
 ## Integrate to Nacos and Sentinel
+
 * Please notes the application.yml file:
+
   ```
   adservice/src/main/resources/application.yml
   ```
+
 * Make sure your Dockerfile has: `JAVA_OPTS` env:
+
   ```
   $JAVA_OPTS -jar /bin/xxx.jar
   ```
+
 * Update the `-D` parms as you want, example like below:
+
   ```
   # Export Sentinel Prometheus metrics
   -javaagent:./jmx_prometheus_javaagent-0.17.0.jar=12345:./prometheus-jmx-config.yaml \
