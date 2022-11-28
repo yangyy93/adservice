@@ -24,13 +24,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.daocloud.springcloud.adservice.Interceptor.MeterInterceptor;
 import org.daocloud.springcloud.adservice.meter.Meter;
+import org.ejml.simple.SimpleMatrix;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @GrpcService
 public class AdServiceGrpcService extends AdServiceGrpc.AdServiceImplBase {
@@ -44,6 +42,12 @@ public class AdServiceGrpcService extends AdServiceGrpc.AdServiceImplBase {
     @Value("${spring.extraAdLabel}")
     private String text;
 
+    @Value("${spring.randomError}")
+    private boolean randomError;
+
+    @Value("${spring.matrixRow}")
+    private int matrixRow;
+
     @Override
     public void getAds(AdRequest req, StreamObserver<AdResponse> responseObserver) {
         // get the current span in context
@@ -55,11 +59,16 @@ public class AdServiceGrpcService extends AdServiceGrpc.AdServiceImplBase {
             span.setAttribute("app.ads.contextKeys.count", req.getContextKeysCount());
             logger.info("received ad request (context_words=" + req.getContextKeysList() + ")");
 
-            //throw random error
-            Random random = new Random();
-            int r = random.nextInt(100)+1;
-            if(r > 50){
-                throw new StatusRuntimeException(Status.INTERNAL.withDescription("connect Canceled randomly"));
+            // do matrixCalculate
+            matrixCalculate(matrixRow);
+
+            if(randomError){
+                //throw random error
+                Random random = new Random();
+                int r = random.nextInt(100)+1;
+                if(r > 50){
+                    throw new StatusRuntimeException(Status.INTERNAL.withDescription("connect Canceled randomly"));
+                }
             }
 
             if (req.getContextKeysCount() > 0) {
@@ -179,5 +188,31 @@ public class AdServiceGrpcService extends AdServiceGrpc.AdServiceImplBase {
             allAdsLabeled.add(labeledAd);
         }
         return allAdsLabeled;
+    }
+
+    private long matrixCalculate(int row){
+        long start = System.currentTimeMillis();
+
+        SimpleMatrix matrixD = new SimpleMatrix(row, row);
+        Random random = new Random();
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < row; j++) {
+                int var = random.nextInt(1000);
+                if (i == j) {
+                    matrixD.set(i, j, var);
+                } else {
+                    matrixD.set(i, j, var);
+                }
+            }
+        }
+        matrixD.transpose();
+        matrixD.normF();
+        matrixD.invert();
+        matrixD.pseudoInverse();
+
+        long finish = System.currentTimeMillis();
+        long timeElapsed = finish - start;
+        logger.info(new Formatter().format("exec %dx%d matrix calculation, spend: %s ms",row,row,timeElapsed));
+        return timeElapsed;
     }
 }

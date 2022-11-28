@@ -151,6 +151,12 @@
       <artifactId>opentelemetry-exporter-prometheus</artifactId>
       <version>1.20.1-alpha</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.ejml</groupId>
+      <artifactId>ejml-all</artifactId>
+      <version>0.41</version>
+    </dependency>
   </dependencies>
 
   <dependencyManagement>

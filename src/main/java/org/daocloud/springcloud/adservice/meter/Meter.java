@@ -37,11 +37,11 @@ public final class Meter {
         meterProvider = SdkMeterProvider.builder().registerMetricReader(prometheusReader).build();
 
         io.opentelemetry.api.metrics.Meter meter = meterProvider.get("adservice");
-        grpcCalls = meter.counterBuilder("grpc_call")
+        grpcCalls = meter.counterBuilder("adservice_grpc_call")
                 .setDescription("record grpc call totals")
                 .build();
 
-        grpcLagency = meter.histogramBuilder("grpc_duration_seconds")
+        grpcLagency = meter.histogramBuilder("adservice_grpc_duration_seconds")
                 .setDescription("record grpc call latency histogram")
                 .build();
     }
