@@ -1,4 +1,4 @@
-FROM registry.cn-hangzhou.aliyuncs.com/mabing/adservice:v1.0 AS builder
+FROM release.daocloud.io/webstore/adservice:v0.0.0 AS builder
 
 WORKDIR /app/
 
