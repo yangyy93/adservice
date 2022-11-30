@@ -20,9 +20,10 @@ RUN set -ex; \
     curl -L -O https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.19.2/opentelemetry-javaagent.jar;
 
 ENV OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317 \
-    AD_SERVICE_PORT=8080 \
     OTEL_RESOURCE_ATTRIBUTES=service.name=adservice-springcloud \
-    JAVA_TOOL_OPTIONS=-javaagent:opentelemetry-javaagent.jar
+    JAVA_TOOL_OPTIONS=-javaagent:opentelemetry-javaagent.jar \
+    JAVA_OPTS='-Dspring.cloud.nacos.config.enabled=false -Dspring.randomError=false' \
+    AD_SERVICE_PORT=8080
 
 EXPOSE 8081 8999 8080 8888
 
