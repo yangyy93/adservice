@@ -40,10 +40,10 @@ to disable this feature.
 
 ## Integrate to Nacos and Sentinel
 
-* Please notes the application.yml file:
+* Please notes the bootstrap.yml file:
 
   ```
-  adservice/src/main/resources/application.yml
+  adservice/src/main/resources/bootstrap.yml
   ```
 
 * Make sure your Dockerfile has: `JAVA_OPTS` env:
