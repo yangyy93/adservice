@@ -1,5 +1,7 @@
 # NOTE: The overall helm chart 
 
+⚠️ This repo has been moved into [openinsight-proj/opentelemetry-demo/src/adservice-v2 dir](https://github.com/openinsight-proj/opentelemetry-demo/tree/daocloud/src/adservice-v2)
+
 https://github.com/openinsight-proj/openinsight-helm-charts
 
 
