@@ -135,6 +135,9 @@ public class HelloWorld {
 
     @RequestMapping("/cookie-set")
     public Mono<String> cookieSet(ServerHttpResponse response,Cookie cookie){
+        if (cookie == null){
+            return Mono.empty();
+        }
         ResponseCookie responseCookie = ResponseCookie.from(cookie.getName(), cookie.getValue())
                 .domain(cookie.getDomain())
                 .httpOnly(cookie.isHttpOnly())
